@@ -2,22 +2,23 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-8">
+    <div class="flex">
+        <div class="w-full">
             @include('layouts.success')
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <img src="{{ Auth::user()->avatar }}" alt="avatar" class="rounded-circle mr-3" width="45px" height="45px">
-                            <b>{{ Auth::user()->name }}</b>
+            <div class="bg-white rounded-md ">
+                <div class="p-2">
+                    <div class="flex ">
+                        <div class="">
+                            <img src="{{ Auth::user()->avatar }}" alt="avatar" class="mr-3 rounded-circle" width="45px" height="45px">
+                            {{-- <b>{{ Auth::user()->name }}</b> --}}
                         </div>
-                        <div class="col-sm-12 mt-3">
+                        <div class="w-full mt-1">
                             <a href="" class="form-control text-dark" data-toggle="modal" data-target="#add-questionModal">What is your question ?</a>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div id="answersHome">
                 @foreach ($answers as $answer)
                     @php
@@ -63,17 +64,17 @@
                         }
 
                     @endphp
-                        <div class="card mt-3" id="{{ $answer->user->name_slug }}">
+                        <div class="mt-3 card" id="{{ $answer->user->name_slug }}">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
-                                        <div class="row mb-3">
+                                        <div class="mb-3 row">
                                             <div class="col-1">
                                                 <img src="{{ $answer->user->avatar }}" alt="avatar" class="rounded-circle" width="45px" height="45px">
                                             </div>
-                                        
+
                                             <div class="col-11 ">
-                                                <a href="{{ route('profile.show',$answer->user->name_slug) }}" class="text-dark"><b>{{  $answer->user->name }} </b></a> &#183; 
+                                                <a href="{{ route('profile.show',$answer->user->name_slug) }}" class="text-dark"><b>{{  $answer->user->name }} </b></a> &#183;
                                                 <a href="{{ route('follow',$answer->user->name_slug) }}">{{ $status }}</a>
                                                 <div class="text-secondary">
                                                     {{ $credential }} &#183; {{ $answer->created_at->format('M d Y') }}
@@ -85,11 +86,11 @@
                                                 <a href="{{ route('question.show',$answer->question->title_slug) }}" class="text-dark"><h5><b>{{ $answer->question->title }}</b></h5></a>
                                             </div>
                                         </div>
-                                        <div class="row mt-2">
+                                        <div class="mt-2 row">
                                             <div class="col-12">
                                                 {{ $answer->text }}<br>
                                                 @if ($answer->image)
-                                                    <img src="{{ asset('img/' . $answer->image) }}" class="img-fluid mt-2 mb-2" alt="image not found!">
+                                                    <img src="{{ asset('img/' . $answer->image) }}" class="mt-2 mb-2 img-fluid" alt="image not found!">
                                                 @else
                                                     <div class="mb-2"></div>
                                                 @endif
@@ -100,18 +101,18 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="btn-group" role="group">
-                                                    <a href="{{ route('answer.vote',['question' => $answer->question->title_slug,'answer' => $answer->id, 'vote' => 'upvote'])}}" class="text-success mr-2" ><i class="bi bi-arrow-up-circle{{ $upvoted }}"></i> {{ $answer->upVoters()->count() }}</a>
-                                                    <a href="{{ route('answer.vote',['question' => $answer->question->title_slug,'answer' => $answer->id, 'vote' => 'downvote'])}}" class="text-danger mr-4" ><i class="bi bi-arrow-down-circle{{ $downvoted }}"></i> {{ $answer->downVoters()->count() }}</a>
+                                                    <a href="{{ route('answer.vote',['question' => $answer->question->title_slug,'answer' => $answer->id, 'vote' => 'upvote'])}}" class="mr-2 text-success" ><i class="bi bi-arrow-up-circle{{ $upvoted }}"></i> {{ $answer->upVoters()->count() }}</a>
+                                                    <a href="{{ route('answer.vote',['question' => $answer->question->title_slug,'answer' => $answer->id, 'vote' => 'downvote'])}}" class="mr-4 text-danger" ><i class="bi bi-arrow-down-circle{{ $downvoted }}"></i> {{ $answer->downVoters()->count() }}</a>
                                                     <a href="{{ $answer->question->title_slug ."#". $answer->user->name_slug }}" class="text-secondary"><i class="bi bi-chat"></i> {{ $answer->comments->count() }}</a>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
-                                                <div class="btn-group float-right" role="group">
+                                                <div class="float-right btn-group" role="group">
                                                 <a href="" class="text-dark" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="bi bi-share"></i></a>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                        <a class="dropdown-item" href="{{ $facebook . '#'.$answer->user->name_slug}} '. '" target="_blank"><i class="bi bi-facebook mr-2"></i>Facebook</a>
-                                                        <a class="dropdown-item" href="{{ $twitter . '#'.$answer->user->name_slug}}'.'" target="_blank"><i class="bi bi-twitter mr-2"></i>Twitter</a>
+                                                        <a class="dropdown-item" href="{{ $facebook . '#'.$answer->user->name_slug}} '. '" target="_blank"><i class="mr-2 bi bi-facebook"></i>Facebook</a>
+                                                        <a class="dropdown-item" href="{{ $twitter . '#'.$answer->user->name_slug}}'.'" target="_blank"><i class="mr-2 bi bi-twitter"></i>Twitter</a>
                                                         <a class="dropdown-item" href="javascript: void(0)" onclick="copy()" id="copyLink" data-attr="{{ $answer->question->title_slug ."#". $answer->user->name_slug }}">Copy link</a>
                                                     </div>
                                                 </div>
@@ -125,12 +126,12 @@
             </div>
 
             <div class="text-center">
-                <button class="btn btn-secondary btn-sm moreHome mt-2 rounded-pill" data-page="2" data-link="/home?page=" data-div="#answersHome">More</button>
+                <button class="mt-2 btn btn-secondary btn-sm moreHome rounded-pill" data-page="2" data-link="/home?page=" data-div="#answersHome">More</button>
             </div>
 
         </div>
 
-        <div class="col-4">
+        <div class="hidden col-4 md:block">
             <x-popular-topic/>
         </div>
     </div>
@@ -155,7 +156,7 @@
 
         $(this).data('page', (parseInt($page) + 1)); //update page #
     });
-    
+
     //script for copy link to clipboard
     function copy() {
         let dummy = document.createElement('input');

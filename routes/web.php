@@ -23,7 +23,7 @@ Route::get('/auth/redirect/{provider}',[SocialiteController::class,'redirect']);
 Route::get('/auth/callback/{provider}',[SocialiteController::class,'callback']);
 
 Auth::routes();
-
+ Route::get('/', [HomeController::class, 'index']);
 Route::group(['middleware' => 'auth'],function(){
 
     Route::group(['middleware' => ['can:isAdmin']],function(){
@@ -52,7 +52,7 @@ Route::group(['middleware' => 'auth'],function(){
     });
 
     //home
-    Route::get('/', [HomeController::class, 'index']);
+   
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/search',[HomeController::class,'search'])->name('search');
 

@@ -15,14 +15,16 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ asset('js/share.js') }}"></script>
-    
+
     <!-- Fonts -->
+
+      <link rel="stylesheet" href="{{ asset('boostrap/app.css') }}" class="">
+      <link rel="stylesheet" href="{{ asset('css/app.css') }}" class="">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     @yield('link')
@@ -35,9 +37,9 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
+        <nav class="bg-white shadow-sm navbar navbar-expand-md navbar-light sticky-top">
             <div class="container">
-                <a class="navbar-brand mr-5" href="{{ route('home') }}">
+                <a class="mr-5 navbar-brand" href="{{ route('home') }}">
                     <b class="text-danger">Luora</b>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -46,11 +48,11 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto" >
+                    <ul class="mr-auto navbar-nav" >
                         @guest
-                            
+
                         @else
-                            <li class="nav-item ml-4">
+                            <li class="ml-4 nav-item">
                                 <a href="{{ route('home') }}" class="{{ request()->route()->named('home') ? 'text-danger' : 'text-dark'}} "><i class="bi bi-house-door" style="font-size: 1.5rem;"></i></a>
                             </li>
 
@@ -60,35 +62,35 @@
                                 <x-admin-comments/>
                                 <x-admin-topics/>
                             @else
-                                <li class="nav-item ml-5">       
+                                <li class="ml-5 nav-item">
                                         <a href="javascript: void(0)" class="text-dark"><i class="bi bi-newspaper" style="font-size: 1.5rem;"></i></a>
                                 </li>
 
-                                <li class="nav-item ml-5">       
+                                <li class="ml-5 nav-item">
                                         <a href="{{ route('answer.index') }}" class="{{ request()->route()->named('answer.index') || request()->route()->named('question.show')  ? 'text-danger' : 'text-dark'}}"><i class="bi bi-pencil-square" style="font-size: 1.5rem;"></i></a>
                                 </li>
-                
-                                <li class="nav-item ml-5">       
+
+                                <li class="ml-5 nav-item">
                                     <a href="javascript: void(0)" class="text-dark"><i class="bi bi-people" style="font-size: 1.5rem;"></i></a>
                                 </li>
 
-                                <li class="nav-item ml-5">
+                                <li class="ml-5 nav-item">
                                         <a href="javascript: void(0)" class="text-dark"><i class="bi bi-bell" style="font-size: 1.5rem;"></i></a>
                                 </li>
 
-                                <li class="nav-item ml-4 mt-1">
+                                <li class="mt-1 ml-4 nav-item">
                                     <select name="livesearch" class="form-control livesearch" style="width: 375px">
-        
+
                                     </select>
                                 </li>
                         @endcan
-                        
+
                         @endguest
 
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="ml-auto navbar-nav">
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -109,11 +111,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right dmenu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile.index',Auth::user()->name_slug) }}" class="text-dark"><b style="font-size: 15px">{{ Auth::user()->name }} <i class="bi bi-chevron-right ml-2"></i></b> </a>
+                                    <a class="dropdown-item" href="{{ route('profile.index',Auth::user()->name_slug) }}" class="text-dark"><b style="font-size: 15px">{{ Auth::user()->name }} <i class="ml-2 bi bi-chevron-right"></i></b> </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{{ route('stats.index') }}"><i class="bi bi-bar-chart mr-2"></i>Stats</a>
-                                    <a class="dropdown-item" href="{{ route('content.index') }}"><i class="bi bi-journals mr-2"></i>Your Content</a>
-                                    <a class="dropdown-item" href="javascript: void(0)"><i class="bi bi-bookmark mr-2"></i>Bookmarks</a>
+                                    <a class="dropdown-item" href="{{ route('stats.index') }}"><i class="mr-2 bi bi-bar-chart"></i>Stats</a>
+                                    <a class="dropdown-item" href="{{ route('content.index') }}"><i class="mr-2 bi bi-journals"></i>Your Content</a>
+                                    <a class="dropdown-item" href="javascript: void(0)"><i class="mr-2 bi bi-bookmark"></i>Bookmarks</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('settings.index') }}">Settings</a>
                                     <a class="dropdown-item" href="javascript: void(0)">Help</a>
@@ -144,8 +146,8 @@
                                     </a>
                                 </div>
                             </li>
-                            <button class="btn btn-sm btn-danger ml-2 rounded-pill" data-toggle="modal" data-target="#add-questionModal">Add question</button>
-                        
+                            <button class="ml-2 btn btn-sm btn-danger rounded-pill" data-toggle="modal" data-target="#add-questionModal">Add question</button>
+
                         @endguest
                     </ul>
                 </div>
@@ -157,7 +159,7 @@
             @else
             <x-question/>
             @endguest
-            
+
             @yield('content')
         </main>
     </div>
@@ -196,7 +198,7 @@
         })
 
     </script>
-    
+
     @yield('script')
 
 </body>
